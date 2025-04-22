@@ -9,49 +9,46 @@
     <link rel="stylesheet" href="bootstrap-icons-1.11.3/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body x-data>
-    <!-- Modal -->
-    <div class="modal-wrapper z-[400]" x-data="{ isModalOpen: false, wasClicked: false }" @trigger-open-modal.window="isModalOpen = !isModalOpen; wasClicked = true" @trigger-close-modal.window="isModalOpen = false" x-show="isModalOpen" x-transition="" style="display: none;">
-        <section class="modal-inner-wrapper">
-            <section class="modal-body rounded-lg shadow md:w-[60%] px-5 bg-white" @click.outside="isModalOpen = wasClicked; wasClicked = false">
-            </section>
-        </section>
-    </div> 
-    <section x-data="{ showDrawer: false }">
-        <section class="bg-black fixed top-0 left-0 w-full h-full bg-opacity-60 z-[1000]" x-show="showDrawer" x-transition="">
-            <div class="flex flex-col items-start bg-white rounded-r-[100px] h-full w-3/4 p-5" x-on:click.away="showDrawer = false">
-               <ul class="space-y-5 flex-1 space-x-8">
-                    <li>
-                        <a href="#" class="font-serif">Home</a>
-                    </li>
-                    <li>
-                        <a href="#about" class="font-serif">About</a>
-                    </li>
-                    <li>
-                        <a href="#faq" class="font-serif">FAQ</a>
-                    </li>
-                    <li>
-                        <a href="#contact" class="font-serif">Contact Us</a>
-                    </li>
-                    <li>
-                        <a href="#" class="font-serif">Become an Agent</a>
-                    </li>
-                    <li>
-                        <a href="#" class="font-serif">Terms</a>
-                    </li>
-                </ul>
-                <button class="bg-white rounded-full px-5 text-xs md:text-base sm:px-10 py-3 border border-primary flex items-center space-x-3">
-                    <span>Download app</span>
-                    <img src="https://billpoint.co/assets/frontend/assets/svgs/arrow-right.svg" alt="" class="hidden md:inline">
-                </button>
-            </div>
-        </section>
-    </section>
 
-    <!-- Navbar -->
+    <!-- ======= Modal ======== -->
+    <div id="mobileMenu" class="fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+        <!-- Close Button -->
+        <div class="flex justify-end p-4">
+            <button onclick="toggleMenu()" class="text-2xl">&times;</button>
+        </div>
+
+        <!-- Menu Items -->
+        <ul class="flex flex-col items-start px-10 space-y-6 text-lg">
+            <li>
+                <a href="#" class="font-serif">Home</a>
+            </li>
+            <li>
+                <a href="#about" class="font-serif">About</a>
+            </li>
+            <li>
+                <a href="#faq" class="font-serif">FAQ</a>
+            </li>
+            <li>
+                <a href="#contact" class="font-serif">Contact Us</a>
+            </li>
+            <li>
+                <a href="#" class="font-serif">Become an Agent</a>
+            </li>
+            <li>
+                <a href="#" class="font-serif">Terms</a>
+            </li>
+        </ul>
+        <button class="bg-white rounded-full px-5 text-xs md:text-base sm:px-10 py-3 border border-primary flex items-center space-x-3 absolute bottom-5">
+            <span>Download app</span>
+            <img src="https://billpoint.co/assets/frontend/assets/svgs/arrow-right.svg" alt="" class="hidden md:inline">
+        </button>
+    </div>
+
+    <!-- ======= Navbar ======== -->
     <section class="bg-orange-500 py-7">
         <div class="shadow bg-white lg:mx-12 mx-3 rounded-full mt-3">
             <nav class="flex justify-between">
-                <button class="px-5 p-2 inline-block lg:hidden"  x-on:click="showDrawer = !showDrawer">
+                <button class="px-5 p-2 inline-block lg:hidden"  onclick="toggleMenu()">
                     <i class="bi bi-list"></i>
                 </button>
                 <a href="#">
@@ -83,7 +80,7 @@
             </nav>
         </div>
    
-        <!-- container 1 -->
+        <!-- ===== container 1 ======== -->
         <div class="container lg:px-32 px-6">
             <section class="grid md:grid-cols-2 gap-5">
                 <section class="order-2 md:order-1 flex flex-col justify-center items-start space-y-5 pt-8">
@@ -112,9 +109,6 @@
                     <img src="img/hero_mobile_app.png" alt="mobile" class="image animate">
                 </section>
             </section>
-            <!-- <div class="fixed right-10 bottom-5">
-                <img src="https://billpoint.co/assets/frontend/assets/svgs/polygon.svg" alt="polygon">
-            </div> -->
         </div>
     </section>
     
@@ -298,7 +292,7 @@
     </section>
 
     <!-- container 5 -->
-    <section class="bg-orange-50 mt-12 py-16" id="faq">
+    <section class="bg-orange-50 mt-12 py-16">
         <div class="text-center">
             <h1 class="md:text-5xl text-2xl font-bold title">
                 Why Choose <span class="text-orange-500"> Billpoint</span>
@@ -356,7 +350,7 @@
     </section>
 
     <!--container 6  -->
-    <section class="py-16">
+    <section class="py-16" id="faq">
         <div class="text-center">
             <h1 class="md:text-5xl text-2xl font-bold title pt-8">
                 Checkout Our <span class="text-orange-500">FAQs</span>
@@ -364,6 +358,80 @@
             <p class="font-semibold xs:font-lg md:pt-5 pt-1">
                 Have a question about our services? Our FAQ section has got you <br> covered with helpful information on all of our offerings.
             </p>
+        </div>
+
+        <div class="md:px-28 px-5 space-y-4 pt-10">
+            <!-- Accordion Item 1-->
+            <button onclick="toggleAccordion('acc1')" class="w-full flex justify-between items-center p-4 text-left text-lg font-medium">
+                Why Should I use Bill Point?
+                <span class="transform transition-transform bi bi-chevron-down" id="icon-acc1"></span>
+            </button>
+            <div id="panel-acc1" class="hidden px-4 pb-4 text-gray-600">
+                Using Bill Point is simply the safest and easiest way to pay for Utilities in Nigeria. It is faster than any other payment platform.You can also use USSD to recharge, it's that easy. Bill Point strives to give you access to constant Cheap Services and also keep your data safe through our military grade safety and security system.
+            </div>
+        
+            <!-- Accordion Item  2-->
+            <button onclick="toggleAccordion('acc2')" class="w-full flex justify-between items-center p-4 text-left text-lg font-medium">
+                How Can I Pay For Utility On Bill Point
+                <span class="transform transition-transform bi bi-chevron-down" id="icon-acc2"></span>
+            </button>
+            <div id="panel-acc2" class="hidden px-4 pb-4 text-gray-600">
+                Using Bill Point is simply the safest and easiest way to pay for Utilities in Nigeria. It is faster than any other payment platform.You can also use USSD to recharge, it's that easy. Bill Point strives to give you access to constant Cheap Services and also keep your data safe through our military grade safety and security system.
+            </div>
+        
+            <!-- Accordion Item 3-->
+            <button onclick="toggleAccordion('acc3')" class="w-full flex justify-between items-center p-4 text-left text-lg font-medium">
+                How do I Pay Or depoist on BillPoint?
+                <span class="transform transition-transform bi bi-chevron-down" id="icon-acc3"></span>
+            </button>
+            <div id="panel-acc3" class="hidden px-4 pb-4 text-gray-600">
+                Using Bill Point is simply the safest and easiest way to pay for Utilities in Nigeria. It is faster than any other payment platform.You can also use USSD to recharge, it's that easy. Bill Point strives to give you access to constant Cheap Services and also keep your data safe through our military grade safety and security system.
+            </div>
+
+             <!-- Accordion Item 4-->
+             <button onclick="toggleAccordion('acc4')" class="w-full flex justify-between items-center p-4 text-left text-lg font-medium">
+                What Happen If my card doesn't work?
+                <span class="transform transition-transform bi bi-chevron-down" id="icon-acc4"></span>
+            </button>
+            <div id="panel-acc4" class="hidden px-4 pb-4 text-gray-600">
+                Using Bill Point is simply the safest and easiest way to pay for Utilities in Nigeria. It is faster than any other payment platform.You can also use USSD to recharge, it's that easy. Bill Point strives to give you access to constant Cheap Services and also keep your data safe through our military grade safety and security system.
+            </div>
+
+             <!-- Accordion Item 5-->
+             <button onclick="toggleAccordion('acc5')" class="w-full flex justify-between items-center p-4 text-left text-lg font-medium">
+                I was debited for a failed transaction
+                <span class="transform transition-transform bi bi-chevron-down" id="icon-acc5"></span>
+            </button>
+            <div id="panel-acc5" class="hidden px-4 pb-4 text-gray-600">
+                Using Bill Point is simply the safest and easiest way to pay for Utilities in Nigeria. It is faster than any other payment platform.You can also use USSD to recharge, it's that easy. Bill Point strives to give you access to constant Cheap Services and also keep your data safe through our military grade safety and security system.
+            </div>
+
+             <!-- Accordion Item 6-->
+             <button onclick="toggleAccordion('acc6')" class="w-full flex justify-between items-center p-4 text-left text-lg font-medium">
+                What is BillPoint?
+                <span class="transform transition-transform bi bi-chevron-down" id="icon-acc6"></span>
+            </button>
+            <div id="panel-acc6" class="hidden px-4 pb-4 text-gray-600">
+                Using Bill Point is simply the safest and easiest way to pay for Utilities in Nigeria. It is faster than any other payment platform.You can also use USSD to recharge, it's that easy. Bill Point strives to give you access to constant Cheap Services and also keep your data safe through our military grade safety and security system.
+            </div>
+
+              <!-- Accordion Item 7-->
+              <button onclick="toggleAccordion('acc7')" class="w-full flex justify-between items-center p-4 text-left text-lg font-medium">
+                Is BillPoint safe and secure to use?
+                <span class="transform transition-transform bi bi-chevron-down" id="icon-acc7"></span>
+            </button>
+            <div id="panel-acc7" class="hidden px-4 pb-4 text-gray-600">
+                Using Bill Point is simply the safest and easiest way to pay for Utilities in Nigeria. It is faster than any other payment platform.You can also use USSD to recharge, it's that easy. Bill Point strives to give you access to constant Cheap Services and also keep your data safe through our military grade safety and security system.
+            </div>
+
+              <!-- Accordion Item 8-->
+              <button onclick="toggleAccordion('acc8')" class="w-full flex justify-between items-center p-4 text-left text-lg font-medium">
+                How do I add money to my BillPoint wallet?
+                <span class="transform transition-transform bi bi-chevron-down" id="icon-acc8"></span>
+            </button>
+            <div id="panel-acc8" class="hidden px-4 pb-4 text-gray-600">
+                Using Bill Point is simply the safest and easiest way to pay for Utilities in Nigeria. It is faster than any other payment platform.You can also use USSD to recharge, it's that easy. Bill Point strives to give you access to constant Cheap Services and also keep your data safe through our military grade safety and security system.
+            </div>
         </div>
     </section>
 
@@ -490,6 +558,31 @@
         </section>
     </section>
 
+    <!-- ========= modal ========== -->
+    <script>
+        function toggleMenu() {
+          const menu = document.getElementById('mobileMenu');
+          const overlay = document.getElementById('overlay');
+          menu.classList.toggle('-translate-x-full');
+        }
+    </script>
+
+    <!-- =========== accordion ============ -->
+     <script>
+        function toggleAccordion(id) {
+            const panel = document.getElementById(`panel-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+
+            const isOpen = !panel.classList.contains("hidden");
+            if (isOpen) {
+                panel.classList.add("hidden");
+                icon.classList.replace("bi-chevron-up", "bi-chevron-down");
+            } else {
+                panel.classList.remove("hidden");
+                icon.classList.replace("bi-chevron-down", "bi-chevron-up");
+            }
+        }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
 </html>
