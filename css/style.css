@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+html{
+    scroll-behavior: smooth !important;
+}
+
 .title{
     line-height: 3.5rem;
 }
@@ -26,20 +30,18 @@
 
 
 .animate {
-    animation: slide 8s ease-in-out 1s infinite;
+    animation: slide 5s ease-in-out 1s infinite;
 }
 
 @keyframes slide {
     0% {
-        transform: translateY(0);
+        transform: translateY(.3rem);
     }
-    33% {
-        transform: translateY(-20px);
-    }
-    66% {
-        transform: translateY(20px);
+    50% {
+        transform: translateY(2rem);
     }
     100% {
-        transform: translateY(0);
+        transform: translateY(.3rem);
     }
 }
+
